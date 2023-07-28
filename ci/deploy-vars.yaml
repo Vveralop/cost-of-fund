@@ -1,7 +1,7 @@
 deployType: eks
 ecsData:
 eksData:
-  image: "itauclbcltesoreriacostofondo"
+  image: "itauclbfftesoreriaempresa"
   image_version: "1.0.1"
   app_version: "1.0.1"
   env:

@@ -1,8 +1,9 @@
 import { Module } from '@nestjs/common';
 import { DynamooseModule } from 'nestjs-dynamoose';
 import { ProductSchema } from './models/product.schema';
-import { CreateProductService, DeleteProductService, SelectProductService, UpdateProductService } from './services';
-import { CreateProductController, SelectProductController, UpdateProductController, DeleteProductController } from 'src/adapter/controllers/product';
+import { CreateProductService, DeleteProductService, SelectProductService, SelectAllProductService,  UpdateProductService } from './services';
+import { CreateProductController, SelectProductController, UpdateProductController, DeleteProductController, SelectAllProductController } from 'src/adapter/controllers/product';
+import {  } from 'src/adapter/controllers/product/select-all.controller';
 
 @Module({
   imports: [
@@ -13,7 +14,7 @@ import { CreateProductController, SelectProductController, UpdateProductControll
       },
     ]),
   ],
-  controllers: [CreateProductController, SelectProductController, UpdateProductController, DeleteProductController],
-  providers: [CreateProductService, SelectProductService, UpdateProductService, DeleteProductService],
+  controllers: [CreateProductController, SelectProductController, SelectAllProductController, UpdateProductController, DeleteProductController],
+  providers: [CreateProductService, SelectProductService, SelectAllProductService, UpdateProductService, DeleteProductService],
 })
 export class ProductModule { }
