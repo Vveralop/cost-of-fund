@@ -1,4 +1,4 @@
-import { Injectable, InternalServerErrorException } from '@nestjs/common';
+import { Injectable, InternalServerErrorException, NotFoundException } from '@nestjs/common';
 import { InjectModel, Model } from 'nestjs-dynamoose';
 import { Product, ProductKey } from '@modules/product/models/product.model';
 
@@ -9,9 +9,20 @@ export class DeleteProductService {
     private readonly model: Model<Product, ProductKey>,
   ) { }
 
-  delete(key: ProductKey) {
+  async delete(key: ProductKey) {
     try {
-      return this.model.delete(key);
+      const product = await this.model.get(key);
+      if (!product){
+        throw new NotFoundException;
+      } else {
+        await this.model.delete(key);
+        return {
+          statusCode: 200,
+          message: 'OK',
+          data: {}
+        };
+      }
+  
     } catch (error) {
       throw new InternalServerErrorException(error);
     }
