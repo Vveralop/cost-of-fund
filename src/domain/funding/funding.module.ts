@@ -1,9 +1,8 @@
 import { Module } from '@nestjs/common';
 import { DynamooseModule } from 'nestjs-dynamoose';
-import { FundingSchema } from './models/funding.schema';
-//import { FundingSchema } from './models/fund.schema';
-import { CreateFundingController, DeleteFundingController, SelectFundingController, UpdateFundingController } from 'src/adapter/controllers/funding';
+import { CreateFundingController, SelectFundingController, UpdateFundingController, DeleteFundingController } from '../../adapter/controllers/funding';
 import { CreateFundingService, DeleteFundingService, SelectFundingService, UpdateFundingService } from './services';
+import { FundingSchema } from './models/funding.schema';
 
 @Module({
   imports: [

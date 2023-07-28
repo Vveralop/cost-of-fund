@@ -1,4 +1,4 @@
-service: aws-nestjs-fundcost-api
+service: cost-of-fund
 
 provider:
   name: aws

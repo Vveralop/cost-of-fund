@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-import { FundingModule } from 'src/domain/funding/funding.module';
+import { FundingModule } from './domain/funding/funding.module';
 import { Database } from './adapter/database/database.module';
 import { HealthModule } from './domain/health/health.module';
 import { InterceptorModule } from './shared/interceptor/interceptor.module';

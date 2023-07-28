@@ -1,5 +1,5 @@
 # Name
-aws-nestjs-fundcost-api
+cost-of-fund
 
 # NestJS Template
 
