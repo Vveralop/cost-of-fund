@@ -11,7 +11,7 @@ class ForecastCurve {
 }
 
 class _Options {
-    id: number;
+    id: string;
     productName: string;
     description: string;
     rateType: string;

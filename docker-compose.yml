@@ -1,17 +1,51 @@
-version: '3.4'
+version: '3.8'
 services:
+  dynamodb-local:
+    command: "-jar DynamoDBLocal.jar -sharedDb -dbPath ./data"
+    image: "amazon/dynamodb-local:latest"
+    container_name: dynamodb-local
+    ports:
+      - "8000:8000"
+    volumes:
+      - "./docker/dynamodb:/home/dynamodblocal/data"
+    working_dir: /home/dynamodblocal
+    networks:
+      - united-containers
+
+  app-node:
+    depends_on:
+      - dynamodb-local
+    image: amazon/aws-cli
+    container_name: app-node
+    ports:
+      - "8080:8080"
+    environment:
+      AWS_ACCESS_KEY_ID: 'vveral'
+      AWS_SECRET_ACCESS_KEY: 'vveral'
+    command:
+      dynamodb describe-limits --endpoint-url http://dynamodb-local:8000 --region us-east-1
+    networks:
+      - united-containers
+  
   node:
-    image: cl-itau-bff-tesoreria-empresa:development
+    image: cl-itau-bcl-tesoreria:development
     build:
       context: .
       dockerfile: ./Dockerfile
       target: development
     ports:
-      #- "${HOST_PORT}:${PORT}"
-      - "3010:3010"
+      - "3000:3000"
     env_file:
       - .env
     volumes:
       - "./:/usr/src/app"
       - "/usr/src/app/node_modules"
     command: npm run start:dev
+    depends_on:
+      - dynamodb-local
+    networks:
+      - united-containers
+
+networks:
+  united-containers:
+    external: true

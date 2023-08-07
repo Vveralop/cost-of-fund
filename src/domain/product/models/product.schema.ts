@@ -20,7 +20,7 @@ export const ProductSchema = new Schema({
           type: Object,
           schema: {
             id: {
-                type: Number,
+                type: String,
             },
             productName: {
                 type: String,
@@ -86,6 +86,9 @@ export const ProductSchema = new Schema({
             },
             paymentFrequencies: {
                 type: Array,
+                schema: [{ 
+                    type: String 
+                }]
             }
           }
         }]

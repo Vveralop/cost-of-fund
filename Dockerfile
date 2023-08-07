@@ -3,6 +3,18 @@ FROM node:16-alpine AS base
 RUN apk add --no-cache git
 RUN apk add openssl
 
+# only Develop
+RUN apk add --no-cache python3 py3-pip && \
+  pip3 install --upgrade pip && \
+  pip3 install --no-cache-dir \
+  awscli && \
+    rm -rf /var/cache/apk/*
+
+RUN aws configure set aws_access_key_id "vveral"
+RUN aws configure set aws_secret_access_key "vveral"
+RUN aws configure set region "us-east-1"
+
+#RUN apk add busybox-extras
 ADD http://gitlab.itauchile.cl/architecture-center-of-excellence/api-connect/certificates/-/raw/main/itauchile/CAPrivate.crt "/usr/local/share/ca-certificates/CAPrivate.crt"
 #RUN echo CAPrivate.crt >> /etc/ssl/certs/ca-certificates.conf && update-ca-certificates
 WORKDIR /usr/local/share/ca-certificates/
@@ -31,9 +43,9 @@ ARG NODE_ENV=production
 ENV NODE_ENV=${NODE_ENV}
 WORKDIR /usr/src/app
 COPY package*.json ./
-RUN npm install --only=production
 
 COPY . .
+RUN npm install --only=production
+
 COPY --from=builder /usr/src/app/dist ./dist
 CMD ["node", "dist/main"]
-

@@ -13,7 +13,7 @@ class ForecastCurve {
 class _Options {
   @ApiProperty()
   @IsNotEmpty()
-  id: number;
+  id: string;
 
   @ApiProperty()
   @IsNotEmpty()
