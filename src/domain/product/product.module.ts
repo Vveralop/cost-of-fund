@@ -1,4 +1,4 @@
-import { Logger, Module, OnModuleInit } from '@nestjs/common';
+import { Module } from '@nestjs/common';
 import { DynamooseModule } from 'nestjs-dynamoose';
 import { ProductSchema } from './models/product.schema';
 import { CreateProductService, DeleteProductService, SelectProductService, SelectAllProductService,  UpdateProductService } from './services';
@@ -17,10 +17,5 @@ import {  } from 'src/adapter/controllers/product/select-all.controller';
   controllers: [CreateProductController, SelectProductController, SelectAllProductController, UpdateProductController, DeleteProductController],
   providers: [CreateProductService, SelectProductService, SelectAllProductService, UpdateProductService, DeleteProductService],
 })
-export class ProductModule implements OnModuleInit{
-  onModuleInit() {
-      Logger.log('Configuracion AWS: ' +' ' +
-      process.env.REGION  +' ' +
-      process.env.ACCESSKEYID  +' ' +  
-      process.env.SECRETACCESSKEY);
-  } }
+export class ProductModule{}
+ 

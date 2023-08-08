@@ -14,6 +14,17 @@ async function bootstrap() {
   const api_prefix = app.get(ConfigService).get<string>('API_PREFIX'); 
   const title = app.get(ConfigService).get<string>('TITLE'); 
 
+  const dynamoose = require('dynamoose');
+  const ddb = new dynamoose.aws.ddb.DynamoDB({
+    "credentials": {
+      "accessKeyId": process.env.ACCESSKEYID,
+      "secretAccessKey": process.env.SECRETACCESSKEY
+    },
+    "region": process.env.REGION
+  });
+
+  dynamoose.aws.ddb.set(ddb);
+
   app.useLogger(app.get(Logger));
   app.setGlobalPrefix(api_prefix || 'v1');
   app.useGlobalPipes((
